@@ -43,8 +43,7 @@ def join_block_halves(left_half, right_half):
 
 def make_seed(key):
     #makes integer seed from string key
-    seed = 0
 
-    #SEED FUNCTION HERE
+    seed = sum(map(ord, seed))
 
     return seed

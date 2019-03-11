@@ -1,5 +1,33 @@
 import pickle
 
+def request_mode():
+    print("Select mode :")
+    print("1. Encrypt")
+    print("2. Decrypt")
+    input_mode = int(input("Select a number: "))
+
+    if input_mode == 1:
+        encrypt = True
+    elif input_mode == 2:
+        encrypt = False
+
+    return encrypt
+
+def request_key():
+    print("Select key source:")
+    print("1. File")
+    print("2. Typed Message")
+    input_mode = int(input("Select a number: "))
+
+    if input_mode == 1:
+        filename = input("Please enter the filename: ")
+        input_file = open(filename, 'rb')
+        external_key = input_file.read().decode()
+    elif input_mode == 2:
+        external_key = input("Please enter the key: ")
+
+    return external_key
+
 def request_plaintext():
     print("Select plaintext source:")
     print("1. File")
