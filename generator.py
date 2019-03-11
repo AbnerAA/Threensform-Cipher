@@ -9,7 +9,7 @@ def ascii_chars():
 
 def generate_all_strings(length):
     """Generates all strings of length `length`"""
-    alphabet = string.ascii_lowercase
+    alphabet = ascii_chars()
 
     ngrams = itertools.product(alphabet, repeat=length)
     ngrams = [''.join(ngram_tuple) for ngram_tuple in ngrams]
