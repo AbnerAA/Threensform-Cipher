@@ -19,12 +19,16 @@ def generate_all_strings(length):
     return ngrams
 
 
-def generate_ngram_substitution_table(n):
+def generate_ngram_substitution_table(n, seed, encrypt):
     """Generate substitution table for ngrams of length n"""
-    permutations = generate_all_strings(3)
+    permutations = generate_all_strings(n)
     map_target = permutations[:]
+    random.seed(seed)
     random.shuffle(map_target)
 
-    ngram_pairs = zip(permutations, map_target)
+    if(encrypt):
+    	ngram_pairs = zip(permutations, map_target)
+    else:
+    	ngram_pairs = zip(map_target, permutations)
     table = {key: value for key, value in ngram_pairs}
     return table

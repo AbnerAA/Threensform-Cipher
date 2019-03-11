@@ -28,11 +28,11 @@ def transpose_and_rotate_string(string):
     return ''.join(list_form)
 
 
-def retrieve_block(file, size=16):
+def retrieve_block(file, size=12):
     return file.read(size)
 
 
-def split_block(block, size=16):
+def split_block(block, size=12):
     left_half = block[:size//2]
     right_half = block[size//2:]
     
@@ -40,3 +40,11 @@ def split_block(block, size=16):
 
 def join_block_halves(left_half, right_half):
     return left_half + right_half
+
+def make_seed(key):
+    #makes integer seed from string key
+    seed = 0
+
+    #SEED FUNCTION HERE
+
+    return seed

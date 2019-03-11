@@ -18,6 +18,11 @@ def extended_caesar_cipher (char, key, encrypt):
 	new_char = num_to_ascii(num)
 	return new_char
 
+def caesar_string(string, key, encrypt):
+	new_string = ""
+	for i, char in string:
+		new_string.append(extended_caesar_cipher(char, key[i], encrypt))
+
 def extended_vigenere_cipher(text, key, encrypt):
 	new_text = ""
 	n = len(key)

@@ -1,4 +1,5 @@
 import utility
+import vigenere
 
 
 def string_xor(string1, string2):
@@ -16,8 +17,9 @@ def string_xor(string1, string2):
 def feistel(block, cipher_function, iters=16):
     left_half, right_half = utility.split_block(block)
 
-    for _ in range(16):
-        right_half = cipher_function(right_half)
+    for i in range(16):
+        key = external_key[(i*8):((i+1)*8)]
+        right_half = cipher_function(right_half, key)
         left_half = string_xor(left_half, right_half)
 
         temp = right_half
