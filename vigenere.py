@@ -9,7 +9,7 @@ def num_to_ascii (num):
 	return char
 
 def extended_caesar_cipher (char, key, encrypt):
-	num = char
+	num = ascii_to_num(char)
 	key_num = ascii_to_num(key)
 	if encrypt:
 		num = (num + key_num) % 256

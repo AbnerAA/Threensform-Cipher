@@ -44,6 +44,6 @@ def join_block_halves(left_half, right_half):
 def make_seed(key):
     #makes integer seed from string key
 
-    seed = sum(map(ord, seed))
+    seed = sum(map(ord, key))
 
     return seed

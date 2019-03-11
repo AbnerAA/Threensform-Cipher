@@ -7,26 +7,26 @@ def transpose(string):
     return new_string
 
 def trigram_substitution(trigram, key, encrypt):
-    table = generate_ngram_substitution_table(3, make_seed(key), encrypt)
+    table = generator.generate_ngram_substitution_table(3, utility.make_seed(key), encrypt)
 
     new_trigram = table[trigram]
 
     return trigram
 
-def threensform(string, key, iter, encrypt=True):
-        if(i%2 == 0):
+def threensform(string, key, iter_counter, encrypt=True):
+        if(iter_counter%2 == 0):
             phase_one(string, key, encrypt)
         else:
             phase_two(string, key, encrypt)
 
 def phase_one(string, key, encrypt):
     string = transpose(string)
-    caesar_string(string, key, encrypt)
+    vigenere.caesar_string(string, key, encrypt)
 
 def phase_two(string, key, encrypt):
-    left, right = split_block(string, size=6)
+    left, right = utility.split_block(string, size=6)
 
-    left = extended_vigenere_cipher(left, right, encrypt)
-    left = trigram_substitution(trigram, key, encrypt)
-    right = extended_vigenere_cipher(right, left, encrypt)
-    right = trigram_substitution(trigram, key, encrypt)
+    left = vigenere.extended_vigenere_cipher(left, right, encrypt)
+    left = trigram_substitution(left, key, encrypt)
+    right = vigenere.extended_vigenere_cipher(right, left, encrypt)
+    right = trigram_substitution(right, key, encrypt)
