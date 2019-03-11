@@ -13,7 +13,7 @@ def trigram_substitution(trigram, key, encrypt):
 
     return trigram
 
-def threensform(string, key, iter, encrypt):
+def threensform(string, key, iter, encrypt=True):
         if(i%2 == 0):
             phase_one(string, key, encrypt)
         else:
