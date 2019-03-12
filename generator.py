@@ -40,9 +40,10 @@ def generate_initial_value(seed, size=12, chars=ascii_chars()):
 
 def initiate_tables(n, key, encrypt):
     #creates tables and saves them as table_[key]
+    tables = []
     for i in range(1, len(key), 2):
-        print(str(i) + "/6...")
+        print(str(int((i+1)/2)) + "/6...")
         seed = utility.make_seed(key[i:i+1])
-        with open("table_" + str(seed) + ".pickle", 'wb') as tables_file:
-            table = generate_ngram_substitution_table(n, seed, encrypt)
-            pickle.dump(table, tables_file, protocol=pickle.HIGHEST_PROTOCOL)
+        table = generate_ngram_substitution_table(n, seed, encrypt)
+        tables.append(table)
+    return tables

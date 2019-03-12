@@ -20,10 +20,10 @@ def main():
 	external_key = IO.request_key()
 
 	print("Generating tables...")
-	generator.initiate_tables(3, external_key, encrypt)
+	trigram_tables = generator.initiate_tables(3, external_key, encrypt)
 	print("Table generation finished.")
 
-	new_text = cipher.block_cipher(text, external_key, threensform.threensform, block_length, iterations, mode, encrypt)
+	new_text = cipher.block_cipher(text, external_key, trigram_tables, threensform.threensform, block_length, iterations, mode, encrypt)
 	
 
 	if encrypt:
