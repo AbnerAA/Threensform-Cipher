@@ -24,12 +24,42 @@ def feistel(block, external_key, trigram_tables, cipher_function, iters=12, encr
         print("iteration " + str(i) + "..")
         if encrypt:
             key = external_key[i]
+            '''print("before cipher_function")
+            print("left_half: ", end="")
+            print(left_half)
+            print("right_half: ", end="")
+            print(right_half)'''
             right_half = cipher_function(right_half, key, trigram_tables, i, encrypt)
+            '''print("before XOR")
+            print("left_half: ", end="")
+            print(left_half)
+            print("right_half: ", end="")
+            print(right_half)'''
             left_half = string_xor(left_half, right_half)
+            '''print("after XOR")
+            print("left_half: ", end="")
+            print(left_half)
+            print("right_half: ", end="")
+            print(right_half)'''
         else:
             key = external_key[key_length-i-1]
+            '''print("before XOR")
+            print("left_half: ", end="")
+            print(left_half)
+            print("right_half: ", end="")
+            print(right_half)'''
             right_half = string_xor(right_half, left_half)
+            '''print("after XOR")
+            print("left_half: ", end="")
+            print(left_half)
+            print("right_half: ", end="")
+            print(right_half)'''
             left_half = cipher_function(left_half, key, trigram_tables, i+1, encrypt)
+            '''print("after cipher_function")
+            print("left_half: ", end="")
+            print(left_half)
+            print("right_half: ", end="")
+            print(right_half)'''
 
 
         if(i < iters):
