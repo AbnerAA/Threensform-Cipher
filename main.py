@@ -1,6 +1,7 @@
 import cipher
 import threensform
 import IO
+import generator
 
 block_length = 12
 iterations = 12
@@ -17,6 +18,10 @@ def main():
 	#coba buat mode ECB
 
 	external_key = IO.request_key()
+
+	print("Generating tables...")
+	generator.initiate_tables(3, external_key, encrypt)
+	print("Table generation finished.")
 
 	new_text = cipher.block_cipher(text, external_key, threensform.threensform, block_length, iterations, mode, encrypt)
 	

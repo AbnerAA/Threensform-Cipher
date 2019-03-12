@@ -17,11 +17,11 @@ def string_xor(string1, string2):
     return ''.join(result_string)
 
 
-def feistel(block, external_key, cipher_function, iters=12, mode=1, encrypt=True):
+def feistel(block, external_key, cipher_function, iters=12, encrypt=True):
     left_half, right_half = utility.split_block(block)
 
     for i in range(iters):
-        print(i)
+        print("iteration " + str(i) + "..")
         if encrypt:
             key = external_key[i]
             right_half = cipher_function(right_half, key, i, encrypt)
@@ -60,8 +60,9 @@ def block_cipher_ecb(text, external_key, cipher_function, block_length=12, iters
     new_text = ""
 
     while i < block_count:
+        print("block " + str(i) + "..")
         block = text[(i*block_length):((i+1)*block_length)]
-        new_block = feistel(block, external_key, cipher_function, iters, mode, encrypt)
+        new_block = feistel(block, external_key, cipher_function, iters, encrypt)
         new_text = new_text + new_block
         i += 1
 
@@ -74,15 +75,16 @@ def block_cipher_cbc(text, external_key, cipher_function, block_length=12, iters
 
     #create IV from key
     seed = utility.make_seed(external_key)
-    feedback = generator.generate_initial_value(block_length, seed)
+    feedback = generator.generate_initial_value(seed, block_length)
 
     while i < block_count:
+        print("block " + str(i) + "..")
         block = text[(i*block_length):((i+1)*block_length)]
 
         if encrypt:
             block = string_xor(block, feedback)
 
-        new_block = feistel(block, external_key, cipher_function, iters, mode, encrypt)
+        new_block = feistel(block, external_key, cipher_function, iters, encrypt)
         i += 1
 
         if encrypt:
@@ -102,12 +104,13 @@ def block_cipher_cfb(text, external_key, cipher_function, block_length=12, iters
 
     #create IV from key
     seed = utility.make_seed(external_key)
-    feedback = generator.generate_initial_value(block_length, seed)
+    generator.generate_initial_value(seed, block_length)
 
     while i < block_count:
+        print("block " + str(i) + "..")
         block = text[(i*block_length):((i+1)*block_length)]
 
-        new_block = feistel(feedback, external_key, cipher_function, iters, mode, True)
+        new_block = feistel(feedback, external_key, cipher_function, iters, True)
 
         new_block = string_xor(block, new_block)
 
@@ -128,11 +131,12 @@ def block_cipher_ofb(text, external_key, cipher_function, block_length=12, iters
 
     #create IV from key
     seed = utility.make_seed(external_key)
-    feedback = generator.generate_initial_value(block_length, seed)
+    generator.generate_initial_value(seed, block_length)
 
     while i < block_count:
+        print("block " + str(i) + "..")
         block = text[(i*block_length):((i+1)*block_length)]
-        feedback = feistel(feedback, external_key, cipher_function, iters, mode, True)
+        feedback = feistel(feedback, external_key, cipher_function, iters, True)
         new_block = string_xor(block, feedback)
         new_text = new_text + new_block
         i += 1
@@ -146,11 +150,12 @@ def block_cipher_counter(text, external_key, cipher_function, block_length=12, i
 
     #create IV from key
     seed = utility.make_seed(external_key)
-    counter = generator.generate_initial_value(block_length, seed)
+    generator.generate_initial_value(seed, block_length)
 
     while i < block_count:
+        print("block " + str(i) + "..")
         block = text[(i*block_length):((i+1)*block_length)]
-        new_block = feistel(counter, external_key, cipher_function, iters, mode, True)
+        new_block = feistel(counter, external_key, cipher_function, iters, True)
         new_block = string_xor(block, new_block)
         new_text = new_text + new_block
         i += 1

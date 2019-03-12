@@ -1,7 +1,8 @@
 import random
-
+import pickle
 import itertools
 import string
+import utility
 
 def ascii_chars():
     """Generates a string containing all extended ASCII chars"""
@@ -33,6 +34,15 @@ def generate_ngram_substitution_table(n, seed, encrypt):
     table = {key: value for key, value in ngram_pairs}
     return table
 
-def generate_initial_value(size=12, seed, chars=ascii_chars()):
+def generate_initial_value(seed, size=12, chars=ascii_chars()):
     random.seed(seed)
     return ''.join(random.choice(chars) for _ in range(size))
+
+def initiate_tables(n, key, encrypt):
+    #creates tables and saves them as table_[key]
+    for i in range(1, len(key), 2):
+        print(str(i) + "/6...")
+        seed = utility.make_seed(key[i:i+1])
+        with open("table_" + str(seed) + ".pickle", 'wb') as tables_file:
+            table = generate_ngram_substitution_table(n, seed, encrypt)
+            pickle.dump(table, tables_file, protocol=pickle.HIGHEST_PROTOCOL)

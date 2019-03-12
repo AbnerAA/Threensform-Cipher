@@ -1,4 +1,5 @@
 import numpy as np
+import pickle
 
 TRANSPOSE_COLUMNS = 2
 
@@ -47,3 +48,11 @@ def make_seed(key):
     seed = sum(map(ord, key))
 
     return seed
+
+def read_table(seed):
+    #read table initiated with seed value
+    print("reading tables..")
+    with open("table_" + str(seed) + ".pickle", 'rb') as tables_file:
+        table = pickle.load(tables_file)
+
+    return table
