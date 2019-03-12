@@ -20,8 +20,10 @@ def extended_caesar_cipher (char, key, encrypt):
 
 def caesar_string(string, key, encrypt):
 	new_string = ""
-	for i, char in string:
-		new_string.append(extended_caesar_cipher(char, key[i], encrypt))
+	for i, char in enumerate(string):
+		new_string = new_string + extended_caesar_cipher(char, key[i], encrypt)
+
+	return new_string
 
 def extended_vigenere_cipher(text, key, encrypt):
 	new_text = ""

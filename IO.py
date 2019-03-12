@@ -13,6 +13,17 @@ def request_mode():
 
     return encrypt
 
+def request_feistel_mode():
+    print("Select feistel mode :")
+    print("1. ECB")
+    print("2. CBC")
+    print("3. CFB")
+    print("4. OFB")
+    print("5. Counter Mode")
+    input_mode = int(input("Select a number: "))
+
+    return input_mode
+
 def request_key():
     print("Select key source:")
     print("1. File")

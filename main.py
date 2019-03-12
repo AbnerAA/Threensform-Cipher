@@ -1,7 +1,6 @@
 import cipher
 import threensform
 import IO
-import math
 
 block_length = 12
 iterations = 16
@@ -13,23 +12,19 @@ def main():
 	else:
 		text = IO.request_ciphertext()
 
+	mode = IO.request_feistel_mode()
+
 	#coba buat mode ECB
 
 	external_key = IO.request_key()
-	block_count = math.ceil(1.0*len(text)/block_length)
-	i = 0
-	new_text = ""
 
-	while i < block_count:
-		block = text[(i*block_length):((i+1)*block_length)]
-		new_block = cipher.feistel(block, external_key, threensform.threensform, iterations, True)
-		new_text = new_text + new_block
-		i += 1
+	new_text = cipher.block_cipher(text, external_key, threensform.threensform, block_length, iterations, mode, encrypt)
+	
 
 	if encrypt:
-		IO.output_ciphertext(text)
+		IO.output_ciphertext(new_text)
 	else:
-		IO.output_plaintext(text)
+		IO.output_plaintext(new_text)
 
 if __name__ == "__main__":
 	main()
