@@ -31,6 +31,4 @@ def extended_vigenere_cipher(text, key, encrypt):
 		new_char = extended_caesar_cipher(char, key[i], encrypt)
 		new_text = new_text + new_char
 
-	new_text = bytearray(new_text, "latin-1")
-
 	return new_text

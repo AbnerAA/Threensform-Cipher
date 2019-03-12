@@ -24,7 +24,7 @@ def main():
 		block = text[(i*block_length):((i+1)*block_length)]
 		new_block = cipher.feistel(block, external_key, threensform.threensform, iterations, True)
 		new_text = new_text + new_block
-		print(new_block)
+		i += 1
 
 	if encrypt:
 		IO.output_ciphertext(text)
