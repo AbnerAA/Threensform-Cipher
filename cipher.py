@@ -2,6 +2,7 @@ import utility
 import vigenere
 import threensform
 import math
+import generator
 
 key_length = 12
 
@@ -21,7 +22,7 @@ def feistel(block, external_key, trigram_tables, cipher_function, iters=12, encr
     left_half, right_half = utility.split_block(block)
 
     for i in range(iters):
-        print("iteration " + str(i) + "..")
+        #print("iteration " + str(i) + "..")
         if encrypt:
             key = external_key[i]
             '''print("before cipher_function")
@@ -134,13 +135,15 @@ def block_cipher_cfb(text, external_key, trigram_tables, cipher_function, block_
 
     #create IV from key
     seed = utility.make_seed(external_key)
-    generator.generate_initial_value(seed, block_length)
+    feedback = generator.generate_initial_value(seed, block_length)
 
     while i < block_count:
         print("block " + str(i) + "..")
         block = text[(i*block_length):((i+1)*block_length)]
 
+        print("feedback: " + feedback)
         new_block = feistel(feedback, external_key, trigram_tables, cipher_function, iters, True)
+        print("after cipher: " + new_block)
 
         new_block = string_xor(block, new_block)
 
@@ -161,7 +164,7 @@ def block_cipher_ofb(text, external_key, trigram_tables, cipher_function, block_
 
     #create IV from key
     seed = utility.make_seed(external_key)
-    generator.generate_initial_value(seed, block_length)
+    feedback = generator.generate_initial_value(seed, block_length)
 
     while i < block_count:
         print("block " + str(i) + "..")
@@ -180,7 +183,7 @@ def block_cipher_counter(text, external_key, trigram_tables, cipher_function, bl
 
     #create IV from key
     seed = utility.make_seed(external_key)
-    generator.generate_initial_value(seed, block_length)
+    counter = generator.generate_initial_value(seed, block_length)
 
     while i < block_count:
         print("block " + str(i) + "..")
@@ -189,6 +192,6 @@ def block_cipher_counter(text, external_key, trigram_tables, cipher_function, bl
         new_block = string_xor(block, new_block)
         new_text = new_text + new_block
         i += 1
-        counter[block_length-1] = chr(ord(counter[block_length-1]) + 1)
+        counter = counter[:block_length-2] + str(ord(counter[block_length-1]) + 1)
 
     return new_text

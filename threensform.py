@@ -47,11 +47,11 @@ def phase_two(string, key, trigram_table, encrypt):
     left, right = utility.split_block(string, size=6)
 
     if encrypt:
-        #print("Left before vigenere: {}".format(left))
+        print("Left before vigenere: {}".format(left))
         left = vigenere.extended_vigenere_cipher(left, right, encrypt)
-        #print("Left after vigenere: {}".format(left))
+        print("Left after vigenere: {}".format(left))
         left = trigram_substitution(left, trigram_table, encrypt)
-        #print("Left after trigram: {}".format(left))
+        print("Left after trigram: {}".format(left))
         right = vigenere.extended_vigenere_cipher(right, left, encrypt)
         right = trigram_substitution(right, trigram_table, encrypt)
     else:
