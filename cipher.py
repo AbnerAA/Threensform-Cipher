@@ -29,6 +29,7 @@ def feistel(block, external_key, cipher_function, iters=12, mode=1, encrypt=True
             print("left_half: ", end="")
             print(left_half)
             print("right_half: ", end="")
+            print(right_half)
             right_half = cipher_function(right_half, key, i, encrypt)
             print("before XOR")
             print("left_half: ", end="")
