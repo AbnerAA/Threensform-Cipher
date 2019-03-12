@@ -16,11 +16,11 @@ def string_xor(string1, string2):
     return ''.join(result_string)
 
 
-def feistel(block, external_key, cipher_function, iters=16, mode=1, encrypt=True):
+def feistel(block, external_key, cipher_function, iters=12, mode=1, encrypt=True):
     left_half, right_half = utility.split_block(block)
 
-    for i in range(16):
-        key = external_key[(i*8):((i+1)*8)]
+    for i in range(iters):
+        key = external_key[i]
         if encrypt:
             right_half = cipher_function(right_half, key, i, encrypt)
             left_half = string_xor(left_half, right_half)
@@ -34,7 +34,7 @@ def feistel(block, external_key, cipher_function, iters=16, mode=1, encrypt=True
 
     return utility.join_block_halves(left_half, right_half)
 
-def block_cipher(text, external_key, cipher_function, block_length=12, iters=16, mode=1, encrypt=True):
+def block_cipher(text, external_key, cipher_function, block_length=12, iters=12, mode=1, encrypt=True):
     block_count = math.ceil(1.0*len(text)/block_length)
     i = 0
     new_text = ""

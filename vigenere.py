@@ -21,7 +21,7 @@ def extended_caesar_cipher (char, key, encrypt):
 def caesar_string(string, key, encrypt):
 	new_string = ""
 	for i, char in enumerate(string):
-		new_string = new_string + extended_caesar_cipher(char, key[i], encrypt)
+		new_string = new_string + extended_caesar_cipher(char, key, encrypt)
 
 	return new_string
 

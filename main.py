@@ -3,7 +3,7 @@ import threensform
 import IO
 
 block_length = 12
-iterations = 16
+iterations = 12
 
 def main():
 	encrypt = IO.request_mode()

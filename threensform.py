@@ -27,8 +27,8 @@ def phase_one(string, key, encrypt):
         new_string = transpose(string)
         new_string = vigenere.caesar_string(new_string, key, encrypt)
     else:
-        new_string = vigenere.caesar_string(new_string, key, encrypt)
-        new_string = transpose(string)
+        new_string = vigenere.caesar_string(string, key, encrypt)
+        new_string = transpose(new_string)
 
     return new_string
 
