@@ -32,3 +32,7 @@ def generate_ngram_substitution_table(n, seed, encrypt):
     	ngram_pairs = zip(map_target, permutations)
     table = {key: value for key, value in ngram_pairs}
     return table
+
+def generate_initial_value(size=12, seed, chars=ascii_chars()):
+    random.seed(seed)
+    return ''.join(random.choice(chars) for _ in range(size))
