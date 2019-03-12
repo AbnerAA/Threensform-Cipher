@@ -3,6 +3,7 @@ import vigenere
 import threensform
 import math
 
+key_length = 12
 
 def string_xor(string1, string2):
     char_pairs = zip(string1, string2)
@@ -20,17 +21,41 @@ def feistel(block, external_key, cipher_function, iters=12, mode=1, encrypt=True
     left_half, right_half = utility.split_block(block)
 
     for i in range(iters):
-        key = external_key[i]
+        print(i)
+        print("before cipher_function")
+        print("left_half: ", end="")
+        print(left_half)
+        print("right_half: ", end="")
+        print(right_half)
         if encrypt:
+            key = external_key[i]
             right_half = cipher_function(right_half, key, i, encrypt)
+            print("before XOR")
+            print("left_half: ", end="")
+            print(left_half)
+            print("right_half: ", end="")
+            print(right_half)
             left_half = string_xor(left_half, right_half)
         else:
-            left_half = cipher_function(left_half, key, i, encrypt)
-            left_half = string_xor(left_half, right_half)
+            key = external_key[key_length-i-1]
+            left_half = cipher_function(left_half, key, i+1, encrypt)
+            print("before XOR")
+            print("left_half: ", end="")
+            print(left_half)
+            print("right_half: ", end="")
+            print(right_half)
+            right_half = string_xor(right_half, left_half)
 
-        temp = right_half
-        right_half = left_half
-        left_half = temp
+        print("after XOR")
+        print("left_half: ", end="")
+        print(left_half)
+        print("right_half: ", end="")
+        print(right_half)
+
+        if(i < iters-1):
+            temp = right_half
+            right_half = left_half
+            left_half = temp
 
     return utility.join_block_halves(left_half, right_half)
 
