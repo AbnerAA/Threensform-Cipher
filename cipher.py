@@ -22,7 +22,6 @@ def feistel(block, external_key, cipher_function, iters=12, mode=1, encrypt=True
 
     for i in range(iters):
         print(i)
-        print(right_half)
         if encrypt:
             key = external_key[i]
             print("before cipher_function")
@@ -63,7 +62,7 @@ def feistel(block, external_key, cipher_function, iters=12, mode=1, encrypt=True
             print(right_half)
 
 
-        if(i < iters-1):
+        if(i < iters):
             temp = right_half
             right_half = left_half
             left_half = temp
