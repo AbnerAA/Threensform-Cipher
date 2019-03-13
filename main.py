@@ -3,6 +3,7 @@ import threensform
 import IO
 import generator
 import math
+import time
 
 block_length = 12
 iterations = 12
@@ -27,8 +28,11 @@ def main():
 		trigram_tables = generator.initiate_tables(3, external_key, True)
 	print("Table generation finished.")
 
+	start_time = time.time()
 	new_text = cipher.block_cipher(text, external_key, trigram_tables, threensform.threensform, block_length, iterations, mode, encrypt)
-	
+	end_time = time.time()
+
+	print("Time taken: {}".format(end_time - start_time))
 
 	if encrypt:
 		IO.output_ciphertext(new_text)
